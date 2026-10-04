@@ -1,0 +1,413 @@
+pages:
+  # ============ Malaysia ============
+  - name: Malaysia
+    columns:
+      - size: small
+        widgets:
+          - type: calendar
+            first-day-of-week: monday
+
+          - type: rss
+            title: Malaysia News
+            style: detailed-list
+            limit: 25
+            collapse-after: 5
+            cache: 30m
+            feeds:
+              - url: https://www.thestar.com.my/rss/News/Nation
+                title: The Star - Nation
+              - url: https://www.malaymail.com/feed/rss
+                title: Malay Mail
+              - url: https://www.nst.com.my/rss.xml
+                title: New Straits Times
+              - url: https://www.freemalaysiatoday.com/feed/
+                title: Free Malaysia Today
+              - url: https://www.theedgemarkets.com/rss.xml
+                title: The Edge Markets
+
+          - type: weather
+            location: Kuala Lumpur, Malaysia
+            units: metric
+            hour-format: 12h
+
+      - size: full
+        widgets:
+          - type: rss
+            limit: 25
+            collapse-after: 15
+            cache: 30m
+            feeds:
+              - url: https://www.thestar.com.my/rss/News/Nation
+                title: The Star - Nation
+              - url: https://www.malaymail.com/feed/rss
+                title: Malay Mail
+              - url: https://www.nst.com.my/rss.xml
+                title: New Straits Times
+              - url: https://www.freemalaysiatoday.com/feed/
+                title: Free Malaysia Today
+              - url: https://www.theedgemarkets.com/rss.xml
+                title: The Edge Markets
+
+          - type: reddit
+            limit: 25
+            collapse-after: 15
+            extra-sort-by: engagement
+            subreddit: malaysia
+            show-thumbnails: true
+
+      - size: small
+        widgets:
+          - type: markets
+            markets:
+              - symbol: ^KLSE
+                name: FBM KLCI
+              - symbol: SPY
+                name: S&P 500
+              - symbol: BTC-USD
+                name: Bitcoin
+              - symbol: 1155.KL
+                name: Maybank
+              - symbol: 1023.KL
+                name: CIMB
+              - symbol: 1295.KL
+                name: Public Bank
+
+          - type: releases
+            limit: 25
+            cache: 1d
+            repositories:
+              - glanceapp/glance
+              - go-gitea/gitea
+              - immich-app/immich
+
+  # ============ Local / Breaking (Malaysia focus) ============
+  - name: Local
+    columns:
+      - size: small
+        widgets:
+          - type: calendar
+            first-day-of-week: sunday
+
+          - type: rss
+            title: Breaking News
+            limit: 12
+            collapse-after: 5
+            cache: 10m
+            feeds:
+              - url: "https://news.google.com/rss/search?q=Malaysia+breaking+news+when:1d&hl=en-MY&gl=MY&ceid=MY:en"
+                title: Malaysia (Google News)
+              - url: "https://www.malaysiakini.com/rss/en/news.rss"
+                title: Malaysiakini
+              - url: "https://www.freemalaysiatoday.com/category/category/nation/feed/"
+                title: FMT Nation
+
+          - type: weather
+            location: Kuala Lumpur, Malaysia
+            units: metric
+            hour-format: 12h
+            # hide-location: true
+
+      - size: full
+        widgets:
+          - type: group
+            widgets:
+              - type: rss
+                title: Local Headlines
+                limit: 15
+                collapse-after: 5
+                cache: 1h
+                show-thumbnails: true
+                feeds:
+                  - url: "https://news.google.com/rss/headlines/section/topic/NATION?hl=en-MY&gl=MY&ceid=MY:en"
+                    title: Google News Malaysia
+                  - url: "https://www.malaymail.com/feed/rss/malaysia"
+                    title: Malay Mail
+                  - url: "https://www.freemalaysiatoday.com/feed/"
+                    title: Free Malaysia Today
+
+          - type: videos
+            channels:
+              - UC5dYmq91e5_g54krpO06NJw # Astro AWANI
+              - UCQ1n_oMrSRW4YenC4XlMYDQ # Bernama TV
+              - UCpWvshQVx1d7BqCsPnVuNIw # The Star
+
+          - type: group
+            widgets:
+              - type: reddit
+                subreddit: Malaysia
+                show-thumbnails: true
+              - type: reddit
+                subreddit: malaysians
+                show-thumbnails: true
+
+      - size: small
+        widgets:
+          - type: markets
+            markets:
+              - symbol: ^KLSE
+                name: KLSE Composite
+              - symbol: MYR=X
+                name: USD/MYR
+              - symbol: 5183.KL
+                name: Petronas Chemicals
+              - symbol: 5681.KL
+                name: Petronas Dagangan
+              - symbol: 1155.KL
+                name: Maybank
+
+          - type: rss
+            title: Berita Tempatan (BM)
+            limit: 10
+            collapse-after: 3
+            cache: 1h
+            feeds:
+              - url: "https://www.bharian.com.my/feed/"
+                title: Berita Harian
+              - url: "https://www.utusan.com.my/feed/"
+                title: Utusan Malaysia
+              - url: "https://www.malaysiakini.com/rss/my/news.rss"
+                title: Malaysiakini BM
+
+  # ============ World News ============
+  - name: World News
+    columns:
+      - size: small
+        widgets:
+          - type: calendar
+            first-day-of-week: monday
+
+          - type: group
+            widgets:
+              - type: clock
+                timezone: America/New_York
+                label: New York
+              - type: clock
+                timezone: Europe/London
+                label: London
+              - type: clock
+                timezone: Asia/Tokyo
+                label: Tokyo
+
+          - type: rss
+            title: Breaking Wires
+            limit: 10
+            collapse-after: 5
+            cache: 10m
+            feeds:
+              - url: https://www.aljazeera.com/xml/rss/all.xml
+                title: Al Jazeera
+                limit: 4
+              - url: https://feeds.skynews.com/feeds/rss/world.xml
+                title: Sky News World
+                limit: 3
+              - url: https://feeds.nbcnews.com/nbcnews/public/news/world.xml
+                title: NBC News World
+                limit: 3
+
+      - size: full
+        widgets:
+          - type: rss
+            title: World Headlines
+            style: horizontal-cards
+            limit: 12
+            collapse-after: 6
+            cache: 15m
+            feeds:
+              - url: https://feeds.bbci.co.uk/news/world/rss.xml
+                title: BBC World
+                limit: 4
+              - url: https://www.theguardian.com/world/rss
+                title: The Guardian
+                limit: 4
+              - url: https://www.aljazeera.com/xml/rss/all.xml
+                title: Al Jazeera
+                limit: 2
+              - url: https://www.france24.com/en/rss
+                title: France 24
+                limit: 2
+
+          - type: videos
+            channels:
+              - UC16niRr50-MSBwiO3YDb3RA # BBC News
+              - UCNye-wNBqNL5ZzHSJj3l8Bg # Al Jazeera English
+              - UCknLrEdhRCp1aegoMqRaCZg # DW News
+              - UCoMdktPbSTixAyNGwb-UYkQ # Sky News
+              - UCupvZG-5ko_eiXAupbDfxWw # CNN
+
+          - type: group
+            widgets:
+              - type: rss
+                title: Google News — World
+                limit: 6
+                collapse-after: 3
+                cache: 15m
+                feeds:
+                  - url: https://news.google.com/rss/headlines/section/topic/WORLD?hl=en-US&gl=US&ceid=US:en
+                    title: World
+              - type: rss
+                title: Google News — Top Stories
+                limit: 6
+                collapse-after: 3
+                cache: 15m
+                feeds:
+                  - url: https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en
+                    title: Top Stories
+
+      - size: small
+        widgets:
+          - type: weather
+            location: Kuala Lumpur, Malaysia
+            units: metric
+            hour-format: 12h
+            # hide-location: true
+
+          - type: markets
+            markets:
+              - symbol: SPY
+                name: S&P 500
+              - symbol: ^FTSE
+                name: FTSE 100
+              - symbol: ^N225
+                name: Nikkei 225
+              - symbol: USDMYR=X
+                name: USD/MYR
+              - symbol: BZ=F
+                name: Brent Crude
+              - symbol: GC=F
+                name: Gold
+
+          - type: rss
+            title: In Depth
+            limit: 10
+            collapse-after: 5
+            cache: 1h
+            feeds:
+              - url: https://feeds.npr.org/1004/rss.xml
+                title: NPR World
+                limit: 4
+              - url: https://news.un.org/feed/subscribe/en/news/all/rss.xml
+                title: UN News
+                limit: 3
+              - url: https://www.cbsnews.com/latest/rss/main
+                title: CBS News
+                limit: 3
+
+  # ============ Middle East ============
+  - name: Middle East
+    columns:
+      - size: small
+        widgets:
+          - type: calendar
+            first-day-of-week: monday
+
+          - type: rss
+            title: US-Iran Conflict Watch
+            limit: 12
+            collapse-after: 6
+            cache: 10m
+            feeds:
+              - url: https://news.google.com/rss/search?q=iran+united+states+war+OR+strikes+OR+airstrikes+OR+military+tensions&hl=en-US&gl=US&ceid=US:en
+                title: Escalation & Strikes
+                limit: 6
+              - url: https://news.google.com/rss/search?q=iran+israel+strikes+OR+tensions+OR+attack&hl=en-US&gl=US&ceid=US:en
+                title: Israel Front
+                limit: 4
+              - url: https://news.google.com/rss/search?q=strait+of+hormuz+OR+oil+tanker+OR+shipping+iran&hl=en-US&gl=US&ceid=US:en
+                title: Hormuz & Oil
+                limit: 2
+              - url: https://news.google.com/rss/search?q=iran+nuclear+enrichment+OR+negotiations+OR+sanctions&hl=en-US&gl=US&ceid=US:en
+                title: Nuclear & Sanctions
+                limit: 2
+
+          - type: rss
+            title: Top Wires
+            limit: 9
+            collapse-after: 4
+            cache: 15m
+            feeds:
+              - url: https://www.aljazeera.com/xml/rss/all.xml
+                title: Al Jazeera
+                limit: 4
+              - url: https://feeds.bbci.co.uk/news/world/middle_east/rss.xml
+                title: BBC Middle East
+                limit: 3
+              - url: https://rss.dw.com/rdf/rss-en-all
+                title: DW
+                limit: 2
+
+      - size: full
+        widgets:
+          - type: group
+            widgets:
+              - type: rss
+                title: Iran In Depth
+                limit: 10
+                collapse-after: 5
+                cache: 30m
+                feeds:
+                  - url: https://www.theguardian.com/world/iran/rss
+                    title: The Guardian - Iran
+                    limit: 6
+                  - url: https://thecradle.co/feed
+                    title: The Cradle
+                    limit: 4
+
+              - type: rss
+                title: Diplomacy & Region
+                limit: 10
+                collapse-after: 5
+                cache: 30m
+                feeds:
+                  - url: https://www.middleeasteye.net/rss
+                    title: Middle East Eye
+                    limit: 4
+                  - url: https://www.theguardian.com/world/middleeast/rss
+                    title: The Guardian - Middle East
+                    limit: 3
+                  - url: http://rss.cnn.com/rss/edition_world.rss
+                    title: CNN World
+                    limit: 3
+
+          - type: videos
+            channels:
+              - UCNye-wNBqNL5ZzHSJj3l8Bg # Al Jazeera English
+              - UC16niRr50-MSBwiO3YDb3RA # BBC News
+              - UCupvZG-5ko_eiXAupbDfxWw # CNN
+              - UCknLrEdhRCp1aegoMqRaCZg # DW News
+              - UCeY0bbntWzzVIaj2z3QigXg # NBC News
+
+          - type: group
+            widgets:
+              - type: reddit
+                subreddit: worldnews
+                show-thumbnails: true
+              - type: reddit
+                subreddit: geopolitics
+                show-thumbnails: true
+
+      - size: small
+        widgets:
+          - type: weather
+            location: Tehran, Iran
+            units: metric
+            hour-format: 24h
+
+          - type: weather
+            location: Washington, DC
+            units: metric
+            hour-format: 24h
+
+          - type: markets
+            markets:
+              - symbol: BZ=F
+                name: Brent Crude
+              - symbol: CL=F
+                name: WTI Crude
+              - symbol: GC=F
+                name: Gold
+              - symbol: LMT
+                name: Lockheed Martin
+              - symbol: RTX
+                name: RTX Corp
+              - symbol: NOC
+                name: Northrop Grumman
