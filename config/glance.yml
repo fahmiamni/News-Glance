@@ -114,93 +114,120 @@ pages:
               - symbol: 4197.KL
                 name: Sime Darby
 
-  # ============ Local / Breaking (Malaysia focus) ============
-  - name: Local
+  # ============ AI & Tech News ============
+  - name: "AI & Tech News"
     columns:
       - size: small
         widgets:
           - type: calendar
-            first-day-of-week: sunday
+            first-day-of-week: monday
 
           - type: rss
-            title: Breaking News
+            title: AI Watch
             limit: 12
-            collapse-after: 5
+            collapse-after: 6
             cache: 10m
             feeds:
-              - url: "https://news.google.com/rss/search?q=Malaysia+breaking+news+when:1d&hl=en-MY&gl=MY&ceid=MY:en"
-                title: Malaysia (Google News)
-              - url: "https://www.malaysiakini.com/rss/en/news.rss"
-                title: Malaysiakini
-              - url: "https://www.freemalaysiatoday.com/category/category/nation/feed/"
-                title: FMT Nation
+              - url: "https://news.google.com/rss/search?q=artificial+intelligence+OR+%22generative+ai%22&hl=en-US&gl=US&ceid=US:en"
+                title: AI Industry
+                limit: 6
+              - url: "https://news.google.com/rss/search?q=openai+OR+anthropic+OR+%22google+deepmind%22&hl=en-US&gl=US&ceid=US:en"
+                title: AI Labs & Models
+                limit: 4
+              - url: "https://news.google.com/rss/search?q=nvidia+OR+semiconductor+OR+%22ai+chip%22&hl=en-US&gl=US&ceid=US:en"
+                title: Chips & Hardware
+                limit: 2
+              - url: "https://news.google.com/rss/search?q=%22ai+regulation%22+OR+%22ai+safety%22+OR+%22eu+ai+act%22&hl=en-US&gl=US&ceid=US:en"
+                title: AI Policy & Safety
+                limit: 2
 
-          - type: weather
-            location: Kuala Lumpur, Malaysia
-            units: metric
-            hour-format: 12h
-            # hide-location: true
+          - type: rss
+            title: Top Wires
+            limit: 9
+            collapse-after: 4
+            cache: 15m
+            feeds:
+              - url: https://techcrunch.com/feed/
+                title: TechCrunch
+                limit: 4
+              - url: https://www.theverge.com/rss/index.xml
+                title: The Verge
+                limit: 3
+              - url: https://feeds.arstechnica.com/arstechnica/index
+                title: Ars Technica
+                limit: 2
 
       - size: full
         widgets:
           - type: group
             widgets:
               - type: rss
-                title: Local Headlines
-                limit: 15
+                title: AI In Depth
+                limit: 10
                 collapse-after: 5
-                cache: 1h
-                show-thumbnails: true
+                cache: 30m
                 feeds:
-                  - url: "https://news.google.com/rss/headlines/section/topic/NATION?hl=en-MY&gl=MY&ceid=MY:en"
-                    title: Google News Malaysia
-                  - url: "https://www.malaymail.com/feed/rss/malaysia"
-                    title: Malay Mail
-                  - url: "https://www.freemalaysiatoday.com/feed/"
-                    title: Free Malaysia Today
+                  - url: https://techcrunch.com/category/artificial-intelligence/feed/
+                    title: TechCrunch AI
+                    limit: 6
+                  - url: https://www.the-decoder.com/feed/
+                    title: The Decoder
+                    limit: 4
 
-          - type: videos
-            channels:
-              - UC5dYmq91e5_g54krpO06NJw # Astro AWANI
-              - UCQ1n_oMrSRW4YenC4XlMYDQ # Bernama TV
-              - UCpWvshQVx1d7BqCsPnVuNIw # The Star
+              - type: rss
+                title: Dev & Open Source
+                limit: 10
+                collapse-after: 5
+                cache: 30m
+                feeds:
+                  - url: https://hnrss.org/frontpage
+                    title: Hacker News
+                    limit: 6
+                  - url: https://github.blog/feed/
+                    title: GitHub Blog
+                    limit: 4
 
-          - type: group
-            widgets:
-              - type: reddit
-                subreddit: Malaysia
-                show-thumbnails: true
-              - type: reddit
-                subreddit: malaysians
-                show-thumbnails: true
+          - type: rss
+            title: Tech Headlines
+            style: horizontal-cards
+            limit: 12
+            collapse-after: 6
+            cache: 15m
+            show-thumbnails: true
+            feeds:
+              - url: "https://news.google.com/rss/headlines/section/topic/TECHNOLOGY?hl=en-US&gl=US&ceid=US:en"
+                title: Technology
+                limit: 8
+              - url: "https://news.google.com/rss/search?q=startup+funding+OR+venture+capital&hl=en-US&gl=US&ceid=US:en"
+                title: Startups & Funding
+                limit: 4
 
       - size: small
         widgets:
+          - type: weather
+            location: San Francisco, USA
+            units: metric
+            hour-format: 12h
+
+          - type: weather
+            location: Seattle, USA
+            units: metric
+            hour-format: 12h
+
           - type: markets
             markets:
-              - symbol: ^KLSE
-                name: KLSE Composite
-              - symbol: MYR=X
-                name: USD/MYR
-              - symbol: 5183.KL
-                name: Petronas Chemicals
-              - symbol: 5681.KL
-                name: Petronas Dagangan
-              - symbol: 1155.KL
-                name: Maybank
-
-          - type: rss
-            title: Berita Tempatan (BM)
-            limit: 10
-            collapse-after: 3
-            cache: 1h
-            feeds:
-              - url: "https://www.bharian.com.my/feed/"
-                title: Berita Harian
-              - url: "https://www.utusan.com.my/feed/"
-                title: Utusan Malaysia
-              - url: "https://www.malaysiakini.com/rss/my/news.rss"
-                title: Malaysiakini BM
+              - symbol: NVDA
+                name: NVIDIA
+              - symbol: MSFT
+                name: Microsoft
+              - symbol: GOOGL
+                name: Alphabet
+              - symbol: AAPL
+                name: Apple
+              - symbol: META
+                name: Meta Platforms
+              - symbol: TSM
+                name: TSMC
 
   # ============ World News ============
   - name: World News
