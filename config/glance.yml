@@ -267,6 +267,37 @@ pages:
 
       - size: full
         widgets:
+          - type: group
+            widgets:
+              - type: rss
+                title: World In Depth
+                limit: 10
+                collapse-after: 5
+                cache: 30m
+                feeds:
+                  - url: https://feeds.bbci.co.uk/news/world/rss.xml
+                    title: BBC World
+                    limit: 6
+                  - url: https://www.theguardian.com/world/rss
+                    title: The Guardian
+                    limit: 4
+
+              - type: rss
+                title: Global Perspectives
+                limit: 10
+                collapse-after: 5
+                cache: 30m
+                feeds:
+                  - url: https://www.france24.com/en/rss
+                    title: France 24
+                    limit: 4
+                  - url: https://www.aljazeera.com/xml/rss/all.xml
+                    title: Al Jazeera
+                    limit: 3
+                  - url: https://rss.dw.com/rdf/rss-en-all
+                    title: DW
+                    limit: 3
+
           - type: rss
             title: World Headlines
             style: horizontal-cards
@@ -287,29 +318,21 @@ pages:
                 title: France 24
                 limit: 2
 
-          - type: videos
-            channels:
-              - UC16niRr50-MSBwiO3YDb3RA # BBC News
-              - UCNye-wNBqNL5ZzHSJj3l8Bg # Al Jazeera English
-              - UCknLrEdhRCp1aegoMqRaCZg # DW News
-              - UCoMdktPbSTixAyNGwb-UYkQ # Sky News
-              - UCupvZG-5ko_eiXAupbDfxWw # CNN
-
           - type: group
             widgets:
               - type: rss
                 title: Google News — World
-                limit: 6
-                collapse-after: 3
-                cache: 15m
+                limit: 10
+                collapse-after: 5
+                cache: 30m
                 feeds:
                   - url: https://news.google.com/rss/headlines/section/topic/WORLD?hl=en-US&gl=US&ceid=US:en
                     title: World
               - type: rss
                 title: Google News — Top Stories
-                limit: 6
-                collapse-after: 3
-                cache: 15m
+                limit: 10
+                collapse-after: 5
+                cache: 30m
                 feeds:
                   - url: https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en
                     title: Top Stories
