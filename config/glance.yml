@@ -8,77 +8,111 @@ pages:
             first-day-of-week: monday
 
           - type: rss
-            title: Malaysia News
-            style: detailed-list
-            limit: 25
-            collapse-after: 5
-            cache: 30m
+            title: Malaysia Watch
+            limit: 12
+            collapse-after: 6
+            cache: 10m
             feeds:
-              - url: https://www.thestar.com.my/rss/News/Nation
-                title: The Star - Nation
+              - url: "https://news.google.com/rss/search?q=malaysia+parliament+OR+government+OR+politics&hl=en-MY&gl=MY&ceid=MY:en"
+                title: Politics & Parliament
+                limit: 6
+              - url: "https://news.google.com/rss/search?q=malaysia+economy+OR+ringgit+OR+bursa+OR+budget&hl=en-MY&gl=MY&ceid=MY:en"
+                title: Economy & Ringgit
+                limit: 4
+              - url: "https://news.google.com/rss/search?q=malaysia+court+OR+corruption+OR+trial&hl=en-MY&gl=MY&ceid=MY:en"
+                title: Courts & Corruption
+                limit: 2
+              - url: "https://news.google.com/rss/search?q=sabah+OR+sarawak+OR+borneo&hl=en-MY&gl=MY&ceid=MY:en"
+                title: Sabah & Sarawak
+                limit: 2
+
+          - type: rss
+            title: Top Wires
+            limit: 9
+            collapse-after: 4
+            cache: 15m
+            feeds:
               - url: https://www.malaymail.com/feed/rss
                 title: Malay Mail
-              - url: https://www.nst.com.my/rss.xml
+                limit: 4
+              - url: https://www.nst.com.my/feed
                 title: New Straits Times
+                limit: 3
               - url: https://www.freemalaysiatoday.com/feed/
                 title: Free Malaysia Today
-              - url: https://www.theedgemarkets.com/rss.xml
-                title: The Edge Markets
+                limit: 2
 
+      - size: full
+        widgets:
+          - type: group
+            widgets:
+              - type: rss
+                title: Malaysia In Depth
+                limit: 10
+                collapse-after: 5
+                cache: 30m
+                feeds:
+                  - url: "https://news.google.com/rss/search?q=site:thestar.com.my+when:2d&hl=en-MY&gl=MY&ceid=MY:en"
+                    title: The Star
+                    limit: 6
+                  - url: https://www.malaysiakini.com/rss/en/news.rss
+                    title: Malaysiakini
+                    limit: 4
+
+              - type: rss
+                title: Business & Markets
+                limit: 10
+                collapse-after: 5
+                cache: 30m
+                feeds:
+                  - url: "https://news.google.com/rss/search?q=site:theedgemalaysia.com+when:2d&hl=en-MY&gl=MY&ceid=MY:en"
+                    title: The Edge
+                    limit: 6
+                  - url: "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=en-MY&gl=MY&ceid=MY:en"
+                    title: Bursa & Business
+                    limit: 4
+
+          - type: rss
+            title: Top Stories
+            style: horizontal-cards
+            limit: 12
+            collapse-after: 6
+            cache: 15m
+            show-thumbnails: true
+            feeds:
+              - url: "https://news.google.com/rss/headlines/section/topic/NATION?hl=en-MY&gl=MY&ceid=MY:en"
+                title: Nation
+                limit: 8
+              - url: "https://news.google.com/rss?hl=en-MY&gl=MY&ceid=MY:en"
+                title: Top Stories
+                limit: 4
+
+      - size: small
+        widgets:
           - type: weather
             location: Kuala Lumpur, Malaysia
             units: metric
             hour-format: 12h
 
-      - size: full
-        widgets:
-          - type: rss
-            limit: 25
-            collapse-after: 15
-            cache: 30m
-            feeds:
-              - url: https://www.thestar.com.my/rss/News/Nation
-                title: The Star - Nation
-              - url: https://www.malaymail.com/feed/rss
-                title: Malay Mail
-              - url: https://www.nst.com.my/rss.xml
-                title: New Straits Times
-              - url: https://www.freemalaysiatoday.com/feed/
-                title: Free Malaysia Today
-              - url: https://www.theedgemarkets.com/rss.xml
-                title: The Edge Markets
+          - type: weather
+            location: Singapore
+            units: metric
+            hour-format: 12h
 
-          - type: reddit
-            limit: 25
-            collapse-after: 15
-            extra-sort-by: engagement
-            subreddit: malaysia
-            show-thumbnails: true
-
-      - size: small
-        widgets:
           - type: markets
             markets:
               - symbol: ^KLSE
                 name: FBM KLCI
-              - symbol: SPY
-                name: S&P 500
-              - symbol: BTC-USD
-                name: Bitcoin
+              - symbol: MYR=X
+                name: USD/MYR
+              - symbol: BZ=F
+                name: Brent Crude
               - symbol: 1155.KL
                 name: Maybank
-              - symbol: 1023.KL
-                name: CIMB
-              - symbol: 1295.KL
-                name: Public Bank
-
-          - type: releases
-            limit: 25
-            cache: 1d
-            repositories:
-              - glanceapp/glance
-              - go-gitea/gitea
-              - immich-app/immich
+              - symbol: 5183.KL
+                name: Petronas Chemicals
+              - symbol: 4197.KL
+                name: Sime Darby
 
   # ============ Local / Breaking (Malaysia focus) ============
   - name: Local
