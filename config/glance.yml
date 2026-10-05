@@ -234,9 +234,6 @@ pages:
     columns:
       - size: small
         widgets:
-          - type: calendar
-            first-day-of-week: monday
-
           - type: group
             widgets:
               - type: clock
@@ -249,21 +246,21 @@ pages:
                 timezone: Asia/Tokyo
                 label: Tokyo
 
-          - type: rss
-            title: Breaking Wires
-            limit: 10
-            collapse-after: 5
-            cache: 10m
-            feeds:
-              - url: https://www.aljazeera.com/xml/rss/all.xml
-                title: Al Jazeera
-                limit: 4
-              - url: https://feeds.skynews.com/feeds/rss/world.xml
-                title: Sky News World
-                limit: 3
-              - url: https://feeds.nbcnews.com/nbcnews/public/news/world.xml
-                title: NBC News World
-                limit: 3
+          - type: weather
+            location: Kuala Lumpur, Malaysia
+            units: metric
+            hour-format: 12h
+
+          - type: markets
+            markets:
+              - symbol: SPY
+                name: S&P 500
+              - symbol: ^FTSE
+                name: FTSE 100
+              - symbol: ^N225
+                name: Nikkei 225
+              - symbol: GC=F
+                name: Gold
 
       - size: full
         widgets:
@@ -339,26 +336,24 @@ pages:
 
       - size: small
         widgets:
-          - type: weather
-            location: Kuala Lumpur, Malaysia
-            units: metric
-            hour-format: 12h
-            # hide-location: true
+          - type: calendar
+            first-day-of-week: monday
 
-          - type: markets
-            markets:
-              - symbol: SPY
-                name: S&P 500
-              - symbol: ^FTSE
-                name: FTSE 100
-              - symbol: ^N225
-                name: Nikkei 225
-              - symbol: USDMYR=X
-                name: USD/MYR
-              - symbol: BZ=F
-                name: Brent Crude
-              - symbol: GC=F
-                name: Gold
+          - type: rss
+            title: Breaking Wires
+            limit: 10
+            collapse-after: 5
+            cache: 10m
+            feeds:
+              - url: https://www.aljazeera.com/xml/rss/all.xml
+                title: Al Jazeera
+                limit: 4
+              - url: https://feeds.skynews.com/feeds/rss/world.xml
+                title: Sky News World
+                limit: 3
+              - url: https://feeds.nbcnews.com/nbcnews/public/news/world.xml
+                title: NBC News World
+                limit: 3
 
           - type: rss
             title: In Depth
