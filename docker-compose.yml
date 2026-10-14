@@ -1,9 +1,20 @@
 services:
   glance:
     container_name: glance-news
-    image: glanceapp/glance
+    image: glanceapp/glance:v0.8.6
     restart: unless-stopped
+    environment:
+      - TZ=Asia/Kuala_Lumpur
+    security_opt:
+      - no-new-privileges:true
     volumes:
       - ./config:/app/config
     ports:
       - 8082:8080
+
+  image-injector:
+    container_name: glance-image-injector
+    build: ./image-injector
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true

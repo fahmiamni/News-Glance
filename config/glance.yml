@@ -1,46 +1,77 @@
+# ============================================================
+# Shared widget definitions (YAML anchors)
+# Edit once here — every page below reuses them via *alias.
+# Docs: https://github.com/glanceapp/glance/blob/main/docs/configuration.md
+# ============================================================
+define:
+  - &search
+    type: search
+    search-engine: duckduckgo
+    bangs:
+      - title: Google
+        shortcut: "!g"
+        url: https://www.google.com/search?q={QUERY}
+      - title: YouTube
+        shortcut: "!yt"
+        url: https://www.youtube.com/results?search_query={QUERY}
+      - title: Wikipedia
+        shortcut: "!w"
+        url: https://en.wikipedia.org/w/index.php?search={QUERY}
+
+  - &clocks
+    type: group
+    widgets:
+      - type: clock
+        timezone: Asia/Kuala_Lumpur
+        label: Kuala Lumpur
+      - type: clock
+        timezone: America/New_York
+        label: New York
+      - type: clock
+        timezone: Europe/London
+        label: London
+      - type: clock
+        timezone: Asia/Tokyo
+        label: Tokyo
+
+  - &weather
+    type: weather
+    location: Kuala Lumpur, Malaysia
+    units: metric
+    hour-format: 12h
+
+  - &markets-banner
+    type: markets
+    hide-header: true
+    markets:
+      - symbol: ^KLSE
+        name: KLCI
+      - symbol: MYR=X
+        name: USD/MYR
+      - symbol: SPY
+        name: S&P 500
+      - symbol: ^FTSE
+        name: FTSE 100
+      - symbol: ^N225
+        name: Nikkei 225
+      - symbol: GC=F
+        name: Gold
+
+  - &calendar
+    type: calendar
+    first-day-of-week: monday
+
 pages:
   # ============ Malaysia ============
   - name: Malaysia
+    head-widgets:
+      - *markets-banner
     columns:
       - size: small
         widgets:
-          - type: calendar
-            first-day-of-week: monday
-
-          - type: rss
-            title: Malaysia Watch
-            limit: 12
-            collapse-after: 6
-            cache: 10m
-            feeds:
-              - url: "https://news.google.com/rss/search?q=malaysia+parliament+OR+government+OR+politics&hl=en-MY&gl=MY&ceid=MY:en"
-                title: Politics & Parliament
-                limit: 6
-              - url: "https://news.google.com/rss/search?q=malaysia+economy+OR+ringgit+OR+bursa+OR+budget&hl=en-MY&gl=MY&ceid=MY:en"
-                title: Economy & Ringgit
-                limit: 4
-              - url: "https://news.google.com/rss/search?q=malaysia+court+OR+corruption+OR+trial&hl=en-MY&gl=MY&ceid=MY:en"
-                title: Courts & Corruption
-                limit: 2
-              - url: "https://news.google.com/rss/search?q=sabah+OR+sarawak+OR+borneo&hl=en-MY&gl=MY&ceid=MY:en"
-                title: Sabah & Sarawak
-                limit: 2
-
-          - type: rss
-            title: Top Wires
-            limit: 9
-            collapse-after: 4
-            cache: 15m
-            feeds:
-              - url: https://www.malaymail.com/feed/rss
-                title: Malay Mail
-                limit: 4
-              - url: https://www.nst.com.my/feed
-                title: New Straits Times
-                limit: 3
-              - url: https://www.freemalaysiatoday.com/feed/
-                title: Free Malaysia Today
-                limit: 2
+          - *search
+          - *clocks
+          - *weather
 
       - size: full
         widgets:
@@ -77,68 +108,46 @@ pages:
             style: horizontal-cards
             limit: 12
             collapse-after: 6
-            cache: 15m
-            show-thumbnails: true
+            cache: 5m
             feeds:
-              - url: "https://news.google.com/rss/headlines/section/topic/NATION?hl=en-MY&gl=MY&ceid=MY:en"
+              - url: http://image-injector:8080/feed?url=https%3A%2F%2Fnews.google.com%2Frss%2Fheadlines%2Fsection%2Ftopic%2FNATION%3Fhl%3Den-MY%26gl%3DMY%26ceid%3DMY%3Aen
                 title: Nation
                 limit: 8
-              - url: "https://news.google.com/rss?hl=en-MY&gl=MY&ceid=MY:en"
+              - url: http://image-injector:8080/feed?url=https%3A%2F%2Fnews.google.com%2Frss%3Fhl%3Den-MY%26gl%3DMY%26ceid%3DMY%3Aen
                 title: Top Stories
                 limit: 4
 
+          - type: rss
+            title: Google News — Top Stories
+            limit: 10
+            collapse-after: 5
+            cache: 30m
+            feeds:
+              - url: https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en
+                title: Top Stories
+
       - size: small
         widgets:
-          - type: weather
-            location: Kuala Lumpur, Malaysia
-            units: metric
-            hour-format: 12h
-
-          - type: weather
-            location: Singapore
-            units: metric
-            hour-format: 12h
-
-          - type: markets
-            markets:
-              - symbol: ^KLSE
-                name: FBM KLCI
-              - symbol: MYR=X
-                name: USD/MYR
-              - symbol: BZ=F
-                name: Brent Crude
-              - symbol: 1155.KL
-                name: Maybank
-              - symbol: 5183.KL
-                name: Petronas Chemicals
-              - symbol: 4197.KL
-                name: Sime Darby
-
-  # ============ AI & Tech News ============
-  - name: "AI & Tech News"
-    columns:
-      - size: small
-        widgets:
-          - type: calendar
-            first-day-of-week: monday
+          - *calendar
 
           - type: rss
-            title: AI Watch
+            title: Malaysia Watch
             limit: 12
             collapse-after: 6
             cache: 10m
+            single-line-titles: true
             feeds:
-              - url: "https://news.google.com/rss/search?q=artificial+intelligence+OR+%22generative+ai%22&hl=en-US&gl=US&ceid=US:en"
-                title: AI Industry
+              - url: "https://news.google.com/rss/search?q=malaysia+parliament+OR+government+OR+politics&hl=en-MY&gl=MY&ceid=MY:en"
+                title: Politics & Parliament
                 limit: 6
-              - url: "https://news.google.com/rss/search?q=openai+OR+anthropic+OR+%22google+deepmind%22&hl=en-US&gl=US&ceid=US:en"
-                title: AI Labs & Models
+              - url: "https://news.google.com/rss/search?q=malaysia+economy+OR+ringgit+OR+bursa+OR+budget&hl=en-MY&gl=MY&ceid=MY:en"
+                title: Economy & Ringgit
                 limit: 4
-              - url: "https://news.google.com/rss/search?q=nvidia+OR+semiconductor+OR+%22ai+chip%22&hl=en-US&gl=US&ceid=US:en"
-                title: Chips & Hardware
+              - url: "https://news.google.com/rss/search?q=malaysia+court+OR+corruption+OR+trial&hl=en-MY&gl=MY&ceid=MY:en"
+                title: Courts & Corruption
                 limit: 2
-              - url: "https://news.google.com/rss/search?q=%22ai+regulation%22+OR+%22ai+safety%22+OR+%22eu+ai+act%22&hl=en-US&gl=US&ceid=US:en"
-                title: AI Policy & Safety
+              - url: "https://news.google.com/rss/search?q=sabah+OR+sarawak+OR+borneo&hl=en-MY&gl=MY&ceid=MY:en"
+                title: Sabah & Sarawak
                 limit: 2
 
           - type: rss
@@ -146,16 +155,28 @@ pages:
             limit: 9
             collapse-after: 4
             cache: 15m
+            single-line-titles: true
             feeds:
-              - url: https://techcrunch.com/feed/
-                title: TechCrunch
+              - url: https://www.malaymail.com/feed/rss
+                title: Malay Mail
                 limit: 4
-              - url: https://www.theverge.com/rss/index.xml
-                title: The Verge
+              - url: https://www.nst.com.my/feed
+                title: New Straits Times
                 limit: 3
-              - url: https://feeds.arstechnica.com/arstechnica/index
-                title: Ars Technica
+              - url: https://www.freemalaysiatoday.com/feed/
+                title: Free Malaysia Today
                 limit: 2
+
+  # ============ AI & Tech News ============
+  - name: "AI & Tech News"
+    head-widgets:
+      - *markets-banner
+    columns:
+      - size: small
+        widgets:
+          - *search
+          - *clocks
+          - *weather
 
       - size: full
         widgets:
@@ -192,75 +213,75 @@ pages:
             style: horizontal-cards
             limit: 12
             collapse-after: 6
-            cache: 15m
-            show-thumbnails: true
+            cache: 5m
             feeds:
-              - url: "https://news.google.com/rss/headlines/section/topic/TECHNOLOGY?hl=en-US&gl=US&ceid=US:en"
+              - url: http://image-injector:8080/feed?url=https%3A%2F%2Fnews.google.com%2Frss%2Fheadlines%2Fsection%2Ftopic%2FTECHNOLOGY%3Fhl%3Den-US%26gl%3DUS%26ceid%3DUS%3Aen
                 title: Technology
                 limit: 8
-              - url: "https://news.google.com/rss/search?q=startup+funding+OR+venture+capital&hl=en-US&gl=US&ceid=US:en"
+              - url: http://image-injector:8080/feed?url=https%3A%2F%2Fnews.google.com%2Frss%2Fsearch%3Fq%3Dstartup%2Bfunding%2BOR%2Bventure%2Bcapital%26hl%3Den-US%26gl%3DUS%26ceid%3DUS%3Aen
                 title: Startups & Funding
                 limit: 4
 
+          - type: rss
+            title: Google News — Top Stories
+            limit: 10
+            collapse-after: 5
+            cache: 30m
+            feeds:
+              - url: https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en
+                title: Top Stories
+
       - size: small
         widgets:
-          - type: weather
-            location: San Francisco, USA
-            units: metric
-            hour-format: 12h
+          - *calendar
 
-          - type: weather
-            location: Seattle, USA
-            units: metric
-            hour-format: 12h
+          - type: rss
+            title: AI Watch
+            limit: 12
+            collapse-after: 6
+            cache: 10m
+            single-line-titles: true
+            feeds:
+              - url: "https://news.google.com/rss/search?q=artificial+intelligence+OR+%22generative+ai%22&hl=en-US&gl=US&ceid=US:en"
+                title: AI Industry
+                limit: 6
+              - url: "https://news.google.com/rss/search?q=openai+OR+anthropic+OR+%22google+deepmind%22&hl=en-US&gl=US&ceid=US:en"
+                title: AI Labs & Models
+                limit: 4
+              - url: "https://news.google.com/rss/search?q=nvidia+OR+semiconductor+OR+%22ai+chip%22&hl=en-US&gl=US&ceid=US:en"
+                title: Chips & Hardware
+                limit: 2
+              - url: "https://news.google.com/rss/search?q=%22ai+regulation%22+OR+%22ai+safety%22+OR+%22eu+ai+act%22&hl=en-US&gl=US&ceid=US:en"
+                title: AI Policy & Safety
+                limit: 2
 
-          - type: markets
-            markets:
-              - symbol: NVDA
-                name: NVIDIA
-              - symbol: MSFT
-                name: Microsoft
-              - symbol: GOOGL
-                name: Alphabet
-              - symbol: AAPL
-                name: Apple
-              - symbol: META
-                name: Meta Platforms
-              - symbol: TSM
-                name: TSMC
+          - type: rss
+            title: Top Wires
+            limit: 9
+            collapse-after: 4
+            cache: 15m
+            single-line-titles: true
+            feeds:
+              - url: https://techcrunch.com/feed/
+                title: TechCrunch
+                limit: 4
+              - url: https://www.theverge.com/rss/index.xml
+                title: The Verge
+                limit: 3
+              - url: https://feeds.arstechnica.com/arstechnica/index
+                title: Ars Technica
+                limit: 2
 
   # ============ World News ============
   - name: World News
+    head-widgets:
+      - *markets-banner
     columns:
       - size: small
         widgets:
-          - type: group
-            widgets:
-              - type: clock
-                timezone: America/New_York
-                label: New York
-              - type: clock
-                timezone: Europe/London
-                label: London
-              - type: clock
-                timezone: Asia/Tokyo
-                label: Tokyo
-
-          - type: weather
-            location: Kuala Lumpur, Malaysia
-            units: metric
-            hour-format: 12h
-
-          - type: markets
-            markets:
-              - symbol: SPY
-                name: S&P 500
-              - symbol: ^FTSE
-                name: FTSE 100
-              - symbol: ^N225
-                name: Nikkei 225
-              - symbol: GC=F
-                name: Gold
+          - *search
+          - *clocks
+          - *weather
 
       - size: full
         widgets:
@@ -287,79 +308,58 @@ pages:
                 feeds:
                   - url: https://www.france24.com/en/rss
                     title: France 24
-                    limit: 4
-                  - url: https://www.aljazeera.com/xml/rss/all.xml
-                    title: Al Jazeera
-                    limit: 3
+                    limit: 5
                   - url: https://rss.dw.com/rdf/rss-en-all
                     title: DW
-                    limit: 3
+                    limit: 5
 
           - type: rss
             title: World Headlines
             style: horizontal-cards
             limit: 12
             collapse-after: 6
-            cache: 15m
+            cache: 5m
             feeds:
-              - url: https://feeds.bbci.co.uk/news/world/rss.xml
-                title: BBC World
-                limit: 4
-              - url: https://www.theguardian.com/world/rss
-                title: The Guardian
-                limit: 4
-              - url: https://www.aljazeera.com/xml/rss/all.xml
+              - url: http://image-injector:8080/feed?url=https%3A%2F%2Fwww.aljazeera.com%2Fxml%2Frss%2Fall.xml
                 title: Al Jazeera
-                limit: 2
-              - url: https://www.france24.com/en/rss
-                title: France 24
-                limit: 2
+                limit: 6
+              - url: http://image-injector:8080/feed?url=https%3A%2F%2Fnews.google.com%2Frss%2Fheadlines%2Fsection%2Ftopic%2FWORLD%3Fhl%3Den-US%26gl%3DUS%26ceid%3DUS%3Aen
+                title: World
+                limit: 6
 
-          - type: group
-            widgets:
-              - type: rss
-                title: Google News — World
-                limit: 10
-                collapse-after: 5
-                cache: 30m
-                feeds:
-                  - url: https://news.google.com/rss/headlines/section/topic/WORLD?hl=en-US&gl=US&ceid=US:en
-                    title: World
-              - type: rss
-                title: Google News — Top Stories
-                limit: 10
-                collapse-after: 5
-                cache: 30m
-                feeds:
-                  - url: https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en
-                    title: Top Stories
+          - type: rss
+            title: Google News — Top Stories
+            limit: 10
+            collapse-after: 5
+            cache: 30m
+            feeds:
+              - url: https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en
+                title: Top Stories
 
       - size: small
         widgets:
-          - type: calendar
-            first-day-of-week: monday
+          - *calendar
 
           - type: rss
             title: Breaking Wires
             limit: 10
             collapse-after: 5
             cache: 10m
+            single-line-titles: true
             feeds:
-              - url: https://www.aljazeera.com/xml/rss/all.xml
-                title: Al Jazeera
-                limit: 4
               - url: https://feeds.skynews.com/feeds/rss/world.xml
                 title: Sky News World
-                limit: 3
+                limit: 5
               - url: https://feeds.nbcnews.com/nbcnews/public/news/world.xml
                 title: NBC News World
-                limit: 3
+                limit: 5
 
           - type: rss
             title: In Depth
             limit: 10
             collapse-after: 5
             cache: 1h
+            single-line-titles: true
             feeds:
               - url: https://feeds.npr.org/1004/rss.xml
                 title: NPR World
@@ -373,46 +373,14 @@ pages:
 
   # ============ Middle East ============
   - name: Middle East
+    head-widgets:
+      - *markets-banner
     columns:
       - size: small
         widgets:
-          - type: calendar
-            first-day-of-week: monday
-
-          - type: rss
-            title: US-Iran Conflict Watch
-            limit: 12
-            collapse-after: 6
-            cache: 10m
-            feeds:
-              - url: https://news.google.com/rss/search?q=iran+united+states+war+OR+strikes+OR+airstrikes+OR+military+tensions&hl=en-US&gl=US&ceid=US:en
-                title: Escalation & Strikes
-                limit: 6
-              - url: https://news.google.com/rss/search?q=iran+israel+strikes+OR+tensions+OR+attack&hl=en-US&gl=US&ceid=US:en
-                title: Israel Front
-                limit: 4
-              - url: https://news.google.com/rss/search?q=strait+of+hormuz+OR+oil+tanker+OR+shipping+iran&hl=en-US&gl=US&ceid=US:en
-                title: Hormuz & Oil
-                limit: 2
-              - url: https://news.google.com/rss/search?q=iran+nuclear+enrichment+OR+negotiations+OR+sanctions&hl=en-US&gl=US&ceid=US:en
-                title: Nuclear & Sanctions
-                limit: 2
-
-          - type: rss
-            title: Top Wires
-            limit: 9
-            collapse-after: 4
-            cache: 15m
-            feeds:
-              - url: https://www.aljazeera.com/xml/rss/all.xml
-                title: Al Jazeera
-                limit: 4
-              - url: https://feeds.bbci.co.uk/news/world/middle_east/rss.xml
-                title: BBC Middle East
-                limit: 3
-              - url: https://rss.dw.com/rdf/rss-en-all
-                title: DW
-                limit: 2
+          - *search
+          - *clocks
+          - *weather
 
       - size: full
         widgets:
@@ -447,46 +415,76 @@ pages:
                     title: CNN World
                     limit: 3
 
-          - type: videos
-            channels:
-              - UCNye-wNBqNL5ZzHSJj3l8Bg # Al Jazeera English
-              - UC16niRr50-MSBwiO3YDb3RA # BBC News
-              - UCupvZG-5ko_eiXAupbDfxWw # CNN
-              - UCknLrEdhRCp1aegoMqRaCZg # DW News
-              - UCeY0bbntWzzVIaj2z3QigXg # NBC News
+          - type: rss
+            title: Middle East Headlines
+            style: horizontal-cards
+            limit: 12
+            collapse-after: 6
+            cache: 5m
+            feeds:
+              - url: http://image-injector:8080/feed?url=https%3A%2F%2Fwww.aljazeera.com%2Fxml%2Frss%2Fall.xml
+                title: Al Jazeera
+                limit: 6
+              - url: http://image-injector:8080/feed?url=https%3A%2F%2Ffeeds.bbci.co.uk%2Fnews%2Fworld%2Fmiddle_east%2Frss.xml
+                title: BBC Middle East
+                limit: 6
 
           - type: group
             widgets:
-              - type: reddit
-                subreddit: worldnews
-                show-thumbnails: true
-              - type: reddit
-                subreddit: geopolitics
-                show-thumbnails: true
+              - type: rss
+                title: Google News — Middle East
+                limit: 10
+                collapse-after: 5
+                cache: 30m
+                feeds:
+                  - url: "https://news.google.com/rss/search?q=%22middle+east%22&hl=en-US&gl=US&ceid=US:en"
+                    title: Middle East
+              - type: rss
+                title: Google News — Top Stories
+                limit: 10
+                collapse-after: 5
+                cache: 30m
+                feeds:
+                  - url: https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en
+                    title: Top Stories
 
       - size: small
         widgets:
-          - type: weather
-            location: Tehran, Iran
-            units: metric
-            hour-format: 24h
+          - *calendar
 
-          - type: weather
-            location: Washington, DC
-            units: metric
-            hour-format: 24h
+          - type: rss
+            title: US-Iran Conflict Watch
+            limit: 12
+            collapse-after: 6
+            cache: 10m
+            single-line-titles: true
+            feeds:
+              - url: https://news.google.com/rss/search?q=iran+united+states+war+OR+strikes+OR+airstrikes+OR+military+tensions&hl=en-US&gl=US&ceid=US:en
+                title: Escalation & Strikes
+                limit: 6
+              - url: https://news.google.com/rss/search?q=iran+israel+strikes+OR+tensions+OR+attack&hl=en-US&gl=US&ceid=US:en
+                title: Israel Front
+                limit: 4
+              - url: https://news.google.com/rss/search?q=strait+of+hormuz+OR+oil+tanker+OR+shipping+iran&hl=en-US&gl=US&ceid=US:en
+                title: Hormuz & Oil
+                limit: 2
+              - url: https://news.google.com/rss/search?q=iran+nuclear+enrichment+OR+negotiations+OR+sanctions&hl=en-US&gl=US&ceid=US:en
+                title: Nuclear & Sanctions
+                limit: 2
 
-          - type: markets
-            markets:
-              - symbol: BZ=F
-                name: Brent Crude
-              - symbol: CL=F
-                name: WTI Crude
-              - symbol: GC=F
-                name: Gold
-              - symbol: LMT
-                name: Lockheed Martin
-              - symbol: RTX
-                name: RTX Corp
-              - symbol: NOC
-                name: Northrop Grumman
+          - type: rss
+            title: Top Wires
+            limit: 9
+            collapse-after: 4
+            cache: 15m
+            single-line-titles: true
+            feeds:
+              - url: https://feeds.skynews.com/feeds/rss/world.xml
+                title: Sky News World
+                limit: 4
+              - url: https://feeds.nbcnews.com/nbcnews/public/news/world.xml
+                title: NBC News World
+                limit: 3
+              - url: https://www.france24.com/en/rss
+                title: France 24
+                limit: 2
