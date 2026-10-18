@@ -40,23 +40,6 @@ define:
     units: metric
     hour-format: 12h
 
-  - &markets-banner
-    type: markets
-    hide-header: true
-    markets:
-      - symbol: ^KLSE
-        name: KLCI
-      - symbol: MYR=X
-        name: USD/MYR
-      - symbol: SPY
-        name: S&P 500
-      - symbol: ^FTSE
-        name: FTSE 100
-      - symbol: ^N225
-        name: Nikkei 225
-      - symbol: GC=F
-        name: Gold
-
   - &calendar
     type: calendar
     first-day-of-week: monday
@@ -64,8 +47,6 @@ define:
 pages:
   # ============ Malaysia ============
   - name: Malaysia
-    head-widgets:
-      - *markets-banner
     columns:
       - size: small
         widgets:
@@ -169,8 +150,6 @@ pages:
 
   # ============ AI & Tech News ============
   - name: "AI & Tech News"
-    head-widgets:
-      - *markets-banner
     columns:
       - size: small
         widgets:
@@ -274,8 +253,6 @@ pages:
 
   # ============ World News ============
   - name: World News
-    head-widgets:
-      - *markets-banner
     columns:
       - size: small
         widgets:
@@ -373,8 +350,6 @@ pages:
 
   # ============ Middle East ============
   - name: Middle East
-    head-widgets:
-      - *markets-banner
     columns:
       - size: small
         widgets:
